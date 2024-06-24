@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import cv2
 import time
 import firebase_admin
@@ -8,7 +10,7 @@ from inference import InferencePipeline
 from firebase_admin import credentials, firestore
 
 # Initialize Firebase
-cred = credentials.Certificate("finalproject-f1a6e-firebase-adminsdk-rb9vv-5f590cfe25.json")
+cred = credentials.Certificate("finalproject-f1a6e-firebase-adminsdk-rb9vv-e417da78bf.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -22,7 +24,7 @@ cloudinary.config(
 
 
 def upload_image(image_path):
-    upload_result = cloudinary.uploader.upload(image_path, public_id="test")
+    upload_result = cloudinary.uploader.upload(image_path, public_id=image_path)
     imageURL = upload_result["secure_url"]
     return imageURL
 
@@ -73,7 +75,8 @@ def custom_on_prediction(results, frame):
 
             data = {
                 'imgbb_url': image_url,
-                'recognition': ocr_results
+                'recognition': ocr_results,
+                'detection': datetime.now()
             }
             save_to_firestore(data)
 
