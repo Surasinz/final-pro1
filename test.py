@@ -85,7 +85,7 @@ def custom_on_prediction(results, frame):
 
 pipeline = InferencePipeline.init(
     model_id="final-9tgod/1",
-    video_reference="img_4652.mp4",
+    video_reference="1",
     on_prediction=custom_on_prediction,
     api_key="rVXyPZdX0nQ5LXH7m0fr",
 )
